@@ -9,22 +9,29 @@ contract ercTest {
     uint32 public constant decimals = 2;
      
     uint public totalCoin = 100000;
-    mapping(address=>uint)balances;
+   mapping (address => uint256) public balances;
     constructor (){
         balances[msg.sender] = totalCoin;
+    }
+    event Transfer(address indexed _from, address indexed _to, uint256 _value);
+    function totalSupply() public view returns (uint256){
+        return totalCoin;
     }
     function transfer(address _to, uint _amount)  public  returns ( bool success){
         require(balances[msg.sender] >= _amount,  "Not enough tokens" );
         balances[msg.sender]-= _amount;
         balances[_to] += _amount;
+        emit Transfer(msg.sender, _to, _amount);
         return true;
     }
     function transferFrom(address _from, address _to, uint _amount)  public  returns (bool success){
         require(balances[_from] >= _amount,  "Not enough tokens" );
         balances[_from]-= _amount;
         balances[_to] += _amount;
+        emit Transfer(_from, _to, _amount);
         return true;
     }
-    function balanceAccount(address _acconts) view public returns(uint){
-        return  balances[_acconts];
+    function balanceOf(address _account)public view  returns(uint256 balance){
+        return  balances[_account];
+    }
     }
