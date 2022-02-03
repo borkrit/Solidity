@@ -8,14 +8,14 @@ contract ercTest {
     
     uint32 public constant decimals = 2;
      
-    uint public totalCoin = 100000;
+    uint public totalSupply = 100000;
    mapping (address => uint256) public balances;
     constructor (){
-        balances[msg.sender] = totalCoin;
+        balances[msg.sender] = totalSupply;
     }
     event Transfer(address indexed _from, address indexed _to, uint256 _value);
     function totalSupply() public view returns (uint256){
-        return totalCoin;
+        return totalSupply;
     }
     function transfer(address _to, uint _amount)  public  returns ( bool success){
         require(balances[msg.sender] >= _amount,  "Not enough tokens" );
